@@ -81,6 +81,7 @@ public class GUI extends Application {
         this.parentStage = primaryStage;
 
         search.setPrefSize(184,38);
+        primaryStage.setResizable(false);
 
         // Get children for buttons
         controls.getChildren().addAll(previousButton, playButton, pauseButton, shuffleButton, repeatButton, nextButton);
