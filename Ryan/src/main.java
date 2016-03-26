@@ -31,7 +31,7 @@ public class main extends Application{
     private Menu menuFile = new Menu("File");
     private MenuItem menuImport = new MenuItem("Import");
     // Define buttons
-    private final Button previousButton, playButton, pauseButton, shuffleButton, repeatButton, nextButton, signInButton, uploadButton, websiteButton;
+    private final Button previousButton, playButton, pauseButton, shuffleButton, repeatButton, nextButton, signInButton, uploadButton;
     private final Image imagePrevious = new Image("file:img/previous.png");
     private final Image imagePlay = new Image("file:img/play.png");
     private final Image imagePause = new Image("file:img/pause.png");
@@ -40,7 +40,6 @@ public class main extends Application{
     private final Image imageNext = new Image("file:img/next.png");
     private final Image signInImage = new Image("file:img/profile.png");
     private final Image uploadImage = new Image("file:img/upload.png");
-    private final Image imageWebsite = new Image("file:img/website.png");
 
     private final Label test;
     private final Image imageTest = new Image("file:img/album.jpg");
@@ -55,7 +54,6 @@ public class main extends Application{
         nextButton = new Button();
         signInButton = new Button();
         uploadButton = new Button();
-        websiteButton = new Button();
 
         test = new Label();
         // Image for buttons
@@ -67,7 +65,6 @@ public class main extends Application{
         nextButton.setGraphic(new ImageView(imageNext));
         signInButton.setGraphic(new ImageView(signInImage));
         uploadButton.setGraphic(new ImageView(uploadImage));
-        websiteButton.setGraphic(new ImageView(imageWebsite));
 
         test.setGraphic(new ImageView(imageTest));
         // Add itmes to the menu items
@@ -105,10 +102,8 @@ public class main extends Application{
         //controls.setAlignment(Pos.CENTER);
         //functions.setAlignment(Pos.TOP_CENTER);
 
-
         signInButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com/login"));
         uploadButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com/upload"));
-        websiteButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com"));
         /*
         * previousButton.setOnAction(e ->);
         * playButton.setOnAction(e -> );
