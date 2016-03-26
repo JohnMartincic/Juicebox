@@ -1,6 +1,10 @@
 package edu.erau.hackathon;
 
+import edu.erau.hackathon.player.SoundCloud;
+import edu.erau.hackathon.player.Track;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -10,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class GUI extends Application {
     // Define gui panes
@@ -34,8 +40,8 @@ public class GUI extends Application {
     // Define buttons
     private final Button previousButton, playButton, pauseButton, shuffleButton, repeatButton, nextButton, signInButton, uploadButton;
     private final Image imagePrevious = new Image("file:img/previous.png");
-    private final Image imagePlay = new Image("file:img/play.png");
     private final Image imagePause = new Image("file:img/pause.png");
+    private final Image imagePlay = new Image("file:img/play.png");
     private final Image imageShuffle = new Image("file:img/shuffle.png");
     private final Image imageRepeat = new Image("file:img/repeat.png");
     private final Image imageNext = new Image("file:img/next.png");
@@ -58,8 +64,9 @@ public class GUI extends Application {
         test = new Label();
         // Image for buttons
         previousButton.setGraphic(new ImageView(imagePrevious));
-        playButton.setGraphic(new ImageView(imagePlay));
         pauseButton.setGraphic(new ImageView(imagePause));
+
+        playButton.setGraphic(new ImageView(imagePlay));
         shuffleButton.setGraphic(new ImageView(imageShuffle));
         repeatButton.setGraphic(new ImageView(imageRepeat));
         nextButton.setGraphic(new ImageView(imageNext));
@@ -106,7 +113,27 @@ public class GUI extends Application {
         //functions.setAlignment(Pos.TOP_CENTER);
 
 
-        signInButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com/login"));
+        playButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                int i = songList.getSelectionModel().getSelectedIndex();
+                SoundBox.playThread.track(SoundBox.tracks.get(i));
+                SoundBox.playThread.start();
+            }
+        });
+        signInButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                SoundBox.tracks = SoundCloud.getInstance().search(search.getText());
+                System.out.println("Tracks: " + SoundBox.tracks.size());
+
+                songList.getItems().clear();
+                songList.getItems().add("Tracks: " + SoundBox.tracks.size());
+                for (Track track : SoundBox.tracks) {
+                    songList.getItems().add(track.title());
+                }
+            }
+        });
         uploadButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com/upload"));
         /*
         * previousButton.setOnAction(e ->);
@@ -120,7 +147,7 @@ public class GUI extends Application {
 
         //Display scene
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Media Player");
+        primaryStage.setTitle("Media PlayerThread");
         primaryStage.show();
     }
 }
