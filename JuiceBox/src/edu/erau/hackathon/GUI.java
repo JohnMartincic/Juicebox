@@ -5,6 +5,7 @@ import edu.erau.hackathon.player.Track;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -23,7 +24,7 @@ public class GUI extends Application {
     private MenuBar menuBar = new MenuBar();
     private ListView songList = new ListView();
     private VBox vbox = new VBox();
-    private BorderPane top = new BorderPane();
+    private VBox top = new VBox();
     private HBox controls = new HBox();
     private HBox functions = new HBox();
     private TextField search = new TextField();
@@ -33,7 +34,7 @@ public class GUI extends Application {
     private MenuItem menuImport = new MenuItem("Import");
     private Menu menuHelp = new Menu("Help");
     // Define buttons
-    private final Button previousButton, playButton, pauseButton, shuffleButton, repeatButton, nextButton, searchButton, uploadButton;
+    private final Button previousButton, playButton, pauseButton, nextButton, searchButton, soundCloudButton;
     private final Image imagePrevious = new Image("file:img/previous.png");
     private final Image imagePause = new Image("file:img/pause.png");
     private final Image imagePlay = new Image("file:img/play.png");
@@ -41,40 +42,32 @@ public class GUI extends Application {
     private final Image imageRepeat = new Image("file:img/repeat.png");
     private final Image imageNext = new Image("file:img/next.png");
     private final Image searchImage = new Image("file:img/search.png");
-    private final Image uploadImage = new Image("file:img/upload.png");
-    private final Label test;
-    private final Image imageTest = null;//new Image("file:img/album.jpg");
+    private final Image soundCloudImage = new Image("file:img/soundcloud.png");
 
     public GUI() {
         // Create buttons
         previousButton = new Button();
         playButton = new Button();
         pauseButton = new Button();
-        shuffleButton = new Button();
-        repeatButton = new Button();
         nextButton = new Button();
         searchButton = new Button();
-        uploadButton = new Button();
+        soundCloudButton = new Button();
 
-        test = new Label();
         // Image for buttons
         previousButton.setGraphic(new ImageView(imagePrevious));
         pauseButton.setGraphic(new ImageView(imagePause));
-
         playButton.setGraphic(new ImageView(imagePlay));
-        shuffleButton.setGraphic(new ImageView(imageShuffle));
-        repeatButton.setGraphic(new ImageView(imageRepeat));
+        // shuffleButton.setGraphic(new ImageView(imageShuffle));
+        // repeatButton.setGraphic(new ImageView(imageRepeat));
         nextButton.setGraphic(new ImageView(imageNext));
         searchButton.setGraphic(new ImageView(searchImage));
-        uploadButton.setGraphic(new ImageView(uploadImage));
+        soundCloudButton.setGraphic(new ImageView(soundCloudImage));
 
-        test.setGraphic(new ImageView(imageTest));
         // Add itmes to the menu items
         menuFile.getItems().add(menuImport);
         menuBar.getMenus().addAll(menuFile, menuHelp);
         // Set size of the window
-        scene = new Scene(borderPane, 550,320);
-
+        scene = new Scene(borderPane, 266,320);
         songList.setEditable(false);
     }
 
@@ -86,60 +79,37 @@ public class GUI extends Application {
         primaryStage.setResizable(false);
 
         // Get children for buttons
-        controls.getChildren().addAll(previousButton, playButton, pauseButton, shuffleButton, repeatButton, nextButton);
-        //previousSong.getChildren().add(previousButton);
-        //nextSong.getChildren().add(nextButton);
+        controls.getChildren().addAll(playButton, pauseButton);
         vbox.getChildren().add(menuBar);
-        functions.getChildren().addAll(search, searchButton, uploadButton);
+        functions.getChildren().addAll(search, searchButton, soundCloudButton);
 
         // Set location of panes
         borderPane.setTop(vbox);
         borderPane.setLeft(top);
         borderPane.setCenter(songList);
+        top.getChildren().addAll(functions,songList,controls);
 
-        top.setTop(functions);
-        //top.setLeft(previousSong);
-        top.setCenter(test);
-        top.setBottom(controls);
-        //top.setRight(nextSong);
-        //lower.setRight(related);
+        controls.setAlignment(Pos.CENTER);
 
-        //controls.setAlignment(Pos.CENTER);
-        //functions.setAlignment(Pos.TOP_CENTER);
+        searchButton.setOnAction(e -> {
+            SoundBox.tracks = SoundCloud.getInstance().search(search.getText());
+            System.out.println("Tracks: " + SoundBox.tracks.size());
 
-
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                int i = songList.getSelectionModel().getSelectedIndex()-1;
-                SoundBox.playThread.track(SoundBox.tracks.get(i));
-                SoundBox.playThread.start();
+            songList.getItems().clear();
+            songList.getItems().add("Tracks: " + SoundBox.tracks.size());
+            for (Track track : SoundBox.tracks) {
+                songList.getItems().add(track.title());
             }
         });
-        searchButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                SoundBox.tracks = SoundCloud.getInstance().search(search.getText());
-                System.out.println("Tracks: " + SoundBox.tracks.size());
 
-                songList.getItems().clear();
-                songList.getItems().add("Tracks: " + SoundBox.tracks.size());
-                for (Track track : SoundBox.tracks) {
-                    songList.getItems().add(track.title());
-                }
-            }
+        soundCloudButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com"));
+
+        playButton.setOnAction(e -> {
+            int i = songList.getSelectionModel().getSelectedIndex()-1;
+            SoundBox.playThread.track(SoundBox.tracks.get(i));
+            SoundBox.playThread.start();
         });
-        uploadButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com/upload"));
-        menuHelp.setOnAction(e -> showHelp());
-        /*
-        * previousButton.setOnAction(e ->);
-        * playButton.setOnAction(e -> );
-        * pauseButton.setOnAction(e -> );
-        * repeatButton.setOnAction(e ->);
-        * shuffleButton.setOnAction(e ->);
-        * nextButton.setOnAction(e ->);
-        */
-
+        pauseButton.setOnAction(e -> SoundBox.playThread.pause());
 
         //Display scene
         primaryStage.setScene(scene);
