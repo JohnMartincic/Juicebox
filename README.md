@@ -1,5 +1,5 @@
 # Juicebox
-Full featured media player that read/import local files as well as upload/download songs from [SoundCloud] (http://soundcloud.com).
+Full featured media player that read/import local files as well as upload/download/stream songs from [SoundCloud] (http://soundcloud.com).
 
 #Version
 0.1.0
@@ -10,6 +10,8 @@ Local Playlist Editor
 Library Manager
 
 Read/Write ID3 tags
+
+Album Art Display
 
 Waveform Visualizer<sup>*</sup>
 
@@ -32,7 +34,7 @@ You will need
 
    [JDK 8+] (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
-   MP3 Codecs. Recommended ones come pre packaged, but you can use your own if you'd like
+   MP3 Codecs. Recommended ones come prepackaged, but you can use your own if you'd like.
 
 #Credit Due
 [Icons8] (https://icons8.com/) for their awesome app icons.
@@ -40,3 +42,8 @@ You will need
 [SoundCloud] (http://soundcloud.com/) for their API.
 
 [Jetbrains] (https://www.jetbrains.com/) for their IntelliJ IDEA IDE.
+
+#Afterword
+This program was created for the HackRiddle 2016 Hackathon at Embry-Riddle
+Aeronautical University in Daytona Beach Florida on the 26th of March. This
+program may or may not be maintained after this date.
