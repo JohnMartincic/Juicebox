@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class GUI extends Application {
@@ -108,6 +109,7 @@ public class GUI extends Application {
 
         signInButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com/login"));
         uploadButton.setOnAction(e -> getHostServices().showDocument("https://soundcloud.com/upload"));
+        menuHelp.setOnAction(e -> showHelp());
         /*
         * previousButton.setOnAction(e ->);
         * playButton.setOnAction(e -> );
@@ -122,5 +124,21 @@ public class GUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Media Player");
         primaryStage.show();
+    }
+
+    private void showHelp(){
+        final String helpText = "This program was created by Robby Duke, Ryan Newitt, Andy Artze, John Martinicic at Hack Riddle on 3/26/2016.";
+        Label helpLabel = new Label();
+        helpLabel.setText(helpText);
+
+        StackPane pane = new StackPane();
+        pane.getChildren().add(helpLabel);
+
+        Scene help = new Scene(pane, 550,100);
+        Stage helpWindow = new Stage();
+        helpWindow.setScene(help);
+        helpWindow.setTitle("About this program");
+        helpWindow.setResizable(false);
+        helpWindow.show();
     }
 }
