@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Popup;
 
 public class GUI extends Application {
     // Define gui panes
@@ -67,7 +68,7 @@ public class GUI extends Application {
         menuFile.getItems().add(menuImport);
         menuBar.getMenus().addAll(menuFile, menuHelp);
         // Set size of the window
-        scene = new Scene(borderPane, 266,320);
+        scene = new Scene(borderPane, 280,320);
         songList.setEditable(false);
     }
 
