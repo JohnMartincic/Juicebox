@@ -1,40 +1,33 @@
 # Juicebox
-Full featured media player that read/import local files as well as upload/download/stream songs from [SoundCloud] (http://soundcloud.com).
+A desktop application for [SoundCloud] (http://soundcloud.com)
 
 #Version
 0.1.0
 
 #Features
-Local Playlist Editor
-
-Library Manager
-
-Read/Write ID3 tags
-
 Album Art Display
 
-Waveform Visualizer<sup>*</sup>
+Waveform Visualizer
 
-Upload/Download music to your [SoundCloud] (http://soundcloud.com) account
+Download music to your [SoundCloud] (http://soundcloud.com) account
 
 Live stream from SoundCloud
 
-Displays related songs<sup>*</sup>
+Displays related songs
 
-Access SoundCloud playlists and stations
-
-Scrobble to Last.fm<sup>**</sup>
-
-<sup>* May not work with anything other than SoundCloud Streams </sup>
-
-<sup> ** Planned for final project, may not be integrated for Hackathon </sup>
+Access to SoundCloud playlists and stations
 
 #How to build
 You will need
 
-   [JDK 8+] (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+    [JDK 8+] (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
-   MP3 Codecs. Recommended ones come prepackaged, but you can use your own if you'd like.
+Build Process
+
+1. Open project in your favorite Java IDE
+2. Build/Run Project
+3. Log In
+4. Done
 
 #Credit Due
 [Icons8] (https://icons8.com/) for their awesome app icons.
