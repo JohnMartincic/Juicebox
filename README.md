@@ -7,11 +7,7 @@ A desktop application for [SoundCloud] (http://soundcloud.com)
 #Features
 Album Art Display
 
-Waveform Visualizer
-
-Download music to your [SoundCloud] (http://soundcloud.com) account
-
-Live stream from SoundCloud
+Live stream from [SoundCloud] (http://soundcloud.com)
 
 Displays related songs
 
@@ -28,6 +24,15 @@ Build Process
 2. Build/Run Project
 3. Log In
 4. Done
+
+#Compilation Errors?
+Is the 'src' folder set as 'Sources Root'?
+
+Are the 'jmf.jar', 'json-simple-1.1.1.jar' and 'mp3plugin.jar' files set as libraries?
+
+Is the 'img' folder set as 'Resources Root'?
+
+Is the 'language level' set to '8 - Lambdas, type annotation, etc'?
 
 #Credit Due
 [Icons8] (https://icons8.com/) for their awesome app icons.
