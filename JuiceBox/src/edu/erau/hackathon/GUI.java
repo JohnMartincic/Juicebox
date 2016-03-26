@@ -13,10 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class GUI extends Application {
     // Define gui panes
@@ -27,11 +24,8 @@ public class GUI extends Application {
     private ListView songList = new ListView();
     private VBox vbox = new VBox();
     private BorderPane top = new BorderPane();
-    private BorderPane lower = new BorderPane();
     private HBox controls = new HBox();
     private HBox functions = new HBox();
-    private StackPane previousSong = new StackPane();
-    private StackPane nextSong = new StackPane();
     private TextField search = new TextField();
 
     // Define menu items
@@ -39,14 +33,14 @@ public class GUI extends Application {
     private MenuItem menuImport = new MenuItem("Import");
     private Menu menuHelp = new Menu("Help");
     // Define buttons
-    private final Button previousButton, playButton, pauseButton, shuffleButton, repeatButton, nextButton, signInButton, uploadButton;
+    private final Button previousButton, playButton, pauseButton, shuffleButton, repeatButton, nextButton, searchButton, uploadButton;
     private final Image imagePrevious = new Image("file:img/previous.png");
     private final Image imagePause = new Image("file:img/pause.png");
     private final Image imagePlay = new Image("file:img/play.png");
     private final Image imageShuffle = new Image("file:img/shuffle.png");
     private final Image imageRepeat = new Image("file:img/repeat.png");
     private final Image imageNext = new Image("file:img/next.png");
-    private final Image signInImage = new Image("file:img/profile.png");
+    private final Image searchImage = new Image("file:img/search.png");
     private final Image uploadImage = new Image("file:img/upload.png");
     private final Label test;
     private final Image imageTest = null;//new Image("file:img/album.jpg");
@@ -59,7 +53,7 @@ public class GUI extends Application {
         shuffleButton = new Button();
         repeatButton = new Button();
         nextButton = new Button();
-        signInButton = new Button();
+        searchButton = new Button();
         uploadButton = new Button();
 
         test = new Label();
@@ -71,7 +65,7 @@ public class GUI extends Application {
         shuffleButton.setGraphic(new ImageView(imageShuffle));
         repeatButton.setGraphic(new ImageView(imageRepeat));
         nextButton.setGraphic(new ImageView(imageNext));
-        signInButton.setGraphic(new ImageView(signInImage));
+        searchButton.setGraphic(new ImageView(searchImage));
         uploadButton.setGraphic(new ImageView(uploadImage));
 
         test.setGraphic(new ImageView(imageTest));
@@ -96,7 +90,7 @@ public class GUI extends Application {
         //previousSong.getChildren().add(previousButton);
         //nextSong.getChildren().add(nextButton);
         vbox.getChildren().add(menuBar);
-        functions.getChildren().addAll(search, signInButton, uploadButton);
+        functions.getChildren().addAll(search, searchButton, uploadButton);
 
         // Set location of panes
         borderPane.setTop(vbox);
@@ -117,12 +111,12 @@ public class GUI extends Application {
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                int i = songList.getSelectionModel().getSelectedIndex();
+                int i = songList.getSelectionModel().getSelectedIndex()-1;
                 SoundBox.playThread.track(SoundBox.tracks.get(i));
                 SoundBox.playThread.start();
             }
         });
-        signInButton.setOnAction(new EventHandler<ActionEvent>() {
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 SoundBox.tracks = SoundCloud.getInstance().search(search.getText());
@@ -167,5 +161,11 @@ public class GUI extends Application {
         helpWindow.setTitle("About this program");
         helpWindow.setResizable(false);
         helpWindow.show();
+    }
+
+    @Override
+    public void stop(){
+        SoundBox.playThread.pause();
+        System.exit(-1);
     }
 }
