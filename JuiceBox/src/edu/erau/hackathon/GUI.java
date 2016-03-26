@@ -80,7 +80,6 @@ public class GUI extends Application {
 
         // Get children for buttons
         controls.getChildren().addAll(playButton, pauseButton);
-        vbox.getChildren().add(menuBar);
         functions.getChildren().addAll(search, searchButton, soundCloudButton);
 
         // Set location of panes
