@@ -113,11 +113,11 @@ public class GUI extends Application {
 
         //Display scene
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Media PlayerThread");
+        primaryStage.setTitle("Juicebox"); //Name of Window - Was Media PlayerThread $John
         primaryStage.show();
     }
 
-    private void showHelp(){
+   /* private void showHelp(){
         final String helpText = "This program was created by Robby Duke, Ryan Newitt, Andy Artze, John Martinicic at Hack Riddle on 3/26/2016.";
         Label helpLabel = new Label();
         helpLabel.setText(helpText);
@@ -131,7 +131,7 @@ public class GUI extends Application {
         helpWindow.setTitle("About this program");
         helpWindow.setResizable(false);
         helpWindow.show();
-    }
+    }*/
 
     @Override
     public void stop(){
